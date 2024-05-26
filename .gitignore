@@ -1,0 +1,98 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribuição / pacotes instalados
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# Instalações do Installer
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+*.egg-info/
+.installed.cfg
+lib/
+lib64/
+__pypackages__/
+
+# Logs e relatórios
+*.log
+*.pot
+*.log.*
+
+# Caches
+.cache/
+coverage/
+
+# Testes e relatórios de cobertura
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Ferramentas e IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.spyderproject
+.ropeproject
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+*.ipynb
+
+# Arquivos de configuração do sistema operacional
+.DS_Store
+Thumbs.db
+
+# PyInstaller
+#  Os arquivos criados por PyInstaller. Aparentemente, eles contêm a distribuição executável
+#  dos pacotes do seu Python e não devem ser compartilhados.
+#  Consulte a documentação do PyInstaller (https://pythonhosted.org/PyInstaller/) para obter mais informações.
+build/
+dist/
+*.spec
+
+# Diretorios de desenvolvimento
+develop-eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+
+# Arquivos de lock
+Pipfile.lock
+poetry.lock
+
+# Diretorios de instancias do Flask
+instance/
+.webassets-cache
+
+# Variáveis de ambiente
+.env
+.env.*
+
