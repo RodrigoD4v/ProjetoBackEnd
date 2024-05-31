@@ -60,8 +60,8 @@ coverage.xml
 .ropeproject
 
 # Jupyter Notebooks
-.ipynb_checkpoints
-*.ipynb
+# .ipynb_checkpoints
+# *.ipynb
 
 # Arquivos de configuração do sistema operacional
 .DS_Store
