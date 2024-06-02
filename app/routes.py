@@ -1,6 +1,5 @@
 import base64
 from io import BytesIO
-from json import encoder
 from flask import render_template, request, jsonify
 from . import app
 import os
@@ -8,18 +7,18 @@ import pickle
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import traceback
 
 def import_model():
+    global modelo, encoder, scaler
     modelo_path = os.path.abspath('./data/models/logistic_regression.pkl')
-    encoder_path = os.path.abspath('./data/models/encoder.pkl')
     scaler_path = os.path.abspath('./data/models/scaler.pkl')
     modelo = pickle.load(open(modelo_path, 'rb'))
-    encoder = pickle.load(open(encoder_path, 'rb'))
     scaler = pickle.load(open(scaler_path, 'rb'))
-    return modelo, encoder, scaler
+    return modelo, scaler
 
 
-    modelo, encoder, scaler = import_model()
+modelo, scaler = import_model()
 
 @app.route('/')
 def index():
@@ -28,55 +27,34 @@ def index():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
+        # Get all form data as a dictionary
+        form_data = request.form.to_dict()
 
-            # Obter os parâmetros do formulário
-        age = float(request.form['age'])
-        balance = float(request.form['balance'])
-        duration = float(request.form['duration'])
-        campaign = float(request.form['campaign'])
-        pdays = float(request.form['pdays'])
-        previous = float(request.form['previous'])
+        # Convert relevant form data to int
+        form_data['age'] = int(form_data['age'])
+        form_data['balance'] = int(form_data['balance'])
+        form_data['duration'] = int(form_data['duration'])
+        form_data['campaign'] = int(form_data['campaign'])
+        form_data['pdays'] = int(form_data['pdays'])
+        form_data['previous'] = int(form_data['previous'])
 
-        job = request.form['job']
-        marital = request.form['marital']
-        education = request.form['education']
-        default = request.form['default']
-        housing = request.form['housing']
-        loan = request.form['loan']
-        contact = request.form['contact']
-        month = request.form['month']
-        poutcome = request.form['poutcome']
-
-         # Codificar variáveis categóricas usando o encoder carregado
-        categorical_data = np.array([[job, marital, education, default, housing, loan, contact, month, poutcome]])
-        categorical_encoded = encoder.transform(categorical_data).toarray()
-
-        # Concatenar variáveis categóricas e numéricas
-
-
-        numerical_data = np.array([[age, balance, duration, campaign, pdays, previous]])
+        # Concatenate numerical data
+        numerical_data = np.array([[form_data['age'], form_data['balance'], form_data['duration'], form_data['campaign'], form_data['pdays'], form_data['previous']]])
         parametros_scaled = scaler.transform(numerical_data)
 
-        # Normalizar os dados
-        parametros_scaled = scaler.transform(parametros)
-
-        ##Fazer a predição
+        # Make the prediction
         resultado = modelo.predict(parametros_scaled)[0]
-
-         # Interpretação do resultado
-
-        resultado = modelo.predict(parametros_scaled)[0]
-
-
-        if resultado == 'no':
-            resultado_texto = 'Não há chances de subscrição'
-        else:
-             resultado_texto = 'Há chances de subscrição'
-
-        return f'Seu resultado é: "{resultado_texto}"!'
-    except Exception as e:
-            return jsonify({'error': f'400 Bad Request: {str(e)}'}), 400
         
+        if resultado == 'no':
+            form_data['resultado_texto'] = 'Não há chances de subscrição'
+        else:
+            form_data['resultado_texto'] = 'Há chances de subscrição'
+
+        return render_template('result.html', **form_data)
+    
+    except Exception as e:
+        print(traceback.print_exc())
+        return jsonify({'error': f'400 Bad Request: {str(e)}'}), 400
 
 @app.route('/ecclientes', methods=['GET'])
 def mostrarEcClientes():
