@@ -14,6 +14,15 @@ nav img {
 h1 {
     text-align: center;
     margin: 1.2em;
+    color: white;
+    background-color: #024d9cd7; /* Bootstrap primary blue */
+    padding: 20px;
+    font-size: 2.5em;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Add some space below the title */
+    text-transform: uppercase;
 }
 
 h2 {
