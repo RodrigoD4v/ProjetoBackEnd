@@ -1,0 +1,74 @@
+/* Style for the title */
+
+#mid-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Aligns items vertically in the center */
+    align-items: center;     /* Aligns items horizontally in the center */
+    margin: auto;
+    width: 50%;
+    height: 50%;
+    text-align: center; /* Center-align text inside the elements */
+    /* background-color: rgb(255, 252, 47); Uncomment for debugging */
+}
+
+#title {
+    color: white;
+    background-color: #024d9cd7; /*Bootstrap primary blue*/
+    padding: 20px;
+    font-size: 2.5em;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Add some space below the title*/
+    text-transform: uppercase; 
+}
+
+/* Style for the result */
+#result {
+    color: white;
+    /* background-color: #28a745; Green background color */
+    padding: 15px;
+    font-size: 2em;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px; /* Add some space above the result */
+    text-transform: uppercase;
+    animation: pop-up 0.5s ease-in-out; /* Add pop-up animation */
+}
+
+/* Style for no chance result */
+.no-chance {
+    background-color: #dc3545; /* Red background color for no chance */
+}
+
+/* Style for chance result */
+.chance {
+    background-color: #28a745; /* Green background color for chance */
+}
+
+/* Pop-up animation for the result */
+@keyframes pop-up {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+#data-input-el {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Creates two equal columns */
+    gap: 20px; /* Adds some space between the items */
+    justify-items: center; /* Centers items horizontally in each grid cell */
+}
+
+/* Style for the data inputs */
+.data-input {
+    color: white;
+    
+}
