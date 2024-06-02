@@ -10,6 +10,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 def import_model():
+<<<<<<< HEAD
     modelo_path = os.path.abspath('./data/models/logistic_regression.pkl')
     encoder_path = os.path.abspath('./data/models/encoder.pkl')
     scaler_path = os.path.abspath('./data/models/scaler.pkl')
@@ -17,6 +18,13 @@ def import_model():
     encoder = pickle.load(open(encoder_path, 'rb'))
     scaler = pickle.load(open(scaler_path, 'rb'))
     return modelo, encoder, scaler
+=======
+  modelo_path = os.path.abspath('./data/models/logistic_regression.pkl')
+  scaler_path = os.path.abspath('./data/models/scaler.pkl')
+  modelo = pickle.load(open(modelo_path, 'rb'))
+  scaler = pickle.load(open(scaler_path, 'rb'))
+  return modelo, encoder, scaler
+>>>>>>> 91f5f8efc44ce43dbd8e1685ec37b94d9d295fd7
 
     modelo, encoder, scaler = import_model()
 
@@ -27,7 +35,10 @@ def index():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
+<<<<<<< HEAD
             # Obter os parâmetros do formulário
+=======
+>>>>>>> 91f5f8efc44ce43dbd8e1685ec37b94d9d295fd7
         age = float(request.form['age'])
         balance = float(request.form['balance'])
         duration = float(request.form['duration'])
@@ -35,6 +46,7 @@ def predict():
         pdays = float(request.form['pdays'])
         previous = float(request.form['previous'])
 
+<<<<<<< HEAD
         job = request.form['job']
         marital = request.form['marital']
         education = request.form['education']
@@ -50,9 +62,12 @@ def predict():
         categorical_encoded = encoder.transform(categorical_data).toarray()
 
         # Concatenar variáveis categóricas e numéricas
+=======
+>>>>>>> 91f5f8efc44ce43dbd8e1685ec37b94d9d295fd7
         numerical_data = np.array([[age, balance, duration, campaign, pdays, previous]])
-        parametros = np.hstack((categorical_encoded, numerical_data))
+        parametros_scaled = scaler.transform(numerical_data)
 
+<<<<<<< HEAD
         # Normalizar os dados
         parametros_scaled = scaler.transform(parametros)
 
@@ -60,6 +75,10 @@ def predict():
         resultado = modelo.predict(parametros_scaled)[0]
 
          # Interpretação do resultado
+=======
+        resultado = modelo.predict(parametros_scaled)[0]
+
+>>>>>>> 91f5f8efc44ce43dbd8e1685ec37b94d9d295fd7
         if resultado == 'no':
             resultado_texto = 'Não há chances de subscrição'
         else:
