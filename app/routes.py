@@ -1,3 +1,5 @@
+# routes.py
+
 import base64
 from io import BytesIO
 from flask import render_template, request, jsonify
@@ -16,7 +18,6 @@ def import_model():
     modelo = pickle.load(open(modelo_path, 'rb'))
     scaler = pickle.load(open(scaler_path, 'rb'))
     return modelo, scaler
-
 
 modelo, scaler = import_model()
 
@@ -58,44 +59,45 @@ def predict():
 
 @app.route('/ecclientes', methods=['GET'])
 def mostrarEcClientes():
-    df = pd.read_csv('data/processed/bank_marketing_processed.csv')
-            
-    job_counts = df['job'].value_counts()
-
-     # Convertendo os dados para um formato JSON
-    data = {
-         'labels': job_counts.index.tolist(),
-           'values': job_counts.values.tolist()
-        }
-
-    return jsonify(data)
-
-@app.route('/maritalstatusclients', methods=['GET'])
-def showMaritalStatusClients():
+    try:
         df = pd.read_csv('data/processed/bank_marketing_processed.csv')
-            
-        marital_counts = df['marital'].value_counts()
-
-        # Convertendo os dados para um formato JSON
-        data = {
-            'labels': marital_counts.index.tolist(),
-            'values': marital_counts.values.tolist()
+        job_counts = df['job'].value_counts().to_dict()
+        response = {
+            'labels': list(job_counts.keys()),
+            'values': list(job_counts.values())
         }
+    except Exception as e:
+        response = {'error': str(e)}
 
-        return jsonify(data)
+    return jsonify(response)
+
 
 @app.route('/educationclients', methods=['GET'])
 def showEducationClients():
+    try:
         df = pd.read_csv('data/processed/bank_marketing_processed.csv')
-            
-        education_counts = df['education'].value_counts()
-
-        # Convertendo os dados para um formato JSON
-        data = {
-            'labels': education_counts.index.tolist(),
-            'values': education_counts.values.tolist()
+        education_counts = df['education'].value_counts().to_dict()
+        response = {
+            'labels': list(education_counts.keys()),
+            'values': list(education_counts.values())
         }
+    except Exception as e:
+        response = {'error': str(e)}
 
-        return jsonify(data)
-    
-    
+    return jsonify(response)
+
+
+@app.route('/maritalstatusclients', methods=['GET'])
+def showMaritalStatusClients():
+    try: 
+        df = pd.read_csv('data/processed/bank_marketing_processed.csv')
+        marital_counts = df['marital'].value_counts().to_dict()
+        response = {
+            'labels': list(marital_counts.keys()),
+            'values': list(marital_counts.values())
+        }
+    except Exception as e:
+        response = {'error': str(e)}
+
+    return jsonify(response)
+
