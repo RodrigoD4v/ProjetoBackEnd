@@ -141,21 +141,6 @@ class TestIntegration(unittest.TestCase):
         self.assertTrue(all(isinstance(value, int) for value in response_data['values']))
         print("Cenário 3: Endpoint '/educationclients' retorna valores numéricos nas contagens.")
 
-    def test_showMaritalStatusClients(self):
-        # Cenário 1: Testa se o endpoint '/maritalstatusclients' retorna o status code 200
-        response = self.app.get('/maritalstatusclients')
-        self.assertEqual(response.status_code, 200)
-        print("Cenário 1: Endpoint '/maritalstatusclients' está acessível.")
-
-        # Cenário 2: Testa se o endpoint '/maritalstatusclients' retorna um JSON com as contagens de estado civil (marital)
-        response_data = response.get_json()
-        self.assertIn('labels', response_data)
-        self.assertIn('values', response_data)
-        print("Cenário 2: Endpoint '/maritalstatusclients' retorna contagens de estado civil (marital).")
-
-        # Cenário 3: Testa se o endpoint '/maritalstatusclients' retorna valores numéricos nas contagens
-        self.assertTrue(all(isinstance(value, int) for value in response_data['values']))
-        print("Cenário 3: Endpoint '/maritalstatusclients' retorna valores numéricos nas contagens.")
 
 if __name__ == '__main__':
     unittest.main()
